@@ -29,6 +29,7 @@ class TopicsViewController: UIViewController {
         floatingButton.layer.cornerRadius = floatingButton.frame.height/2
         floatingButton.setImage(UIImage(named: "ico_floating_add"), for: .normal)
         floatingButton.backgroundColor = .tangerine
+        floatingButton.addTarget(self, action: #selector(plusButtonTapped), for: .touchUpInside)
         return floatingButton
     }()
     
@@ -64,6 +65,30 @@ class TopicsViewController: UIViewController {
         viewModel.viewWasLoaded()
     }
     
+    private func configureNavigationBar() {
+        let addBarButtonItem: UIBarButtonItem = UIBarButtonItem(image: UIImage(named: "ico_add"), style: .plain, target: self, action: #selector(plusButtonTapped))
+        let searchBarButtonItem: UIBarButtonItem = UIBarButtonItem(image: UIImage(named: "ico_search"), style: .plain , target: self, action: nil)
+        navigationItem.leftBarButtonItem = addBarButtonItem
+        navigationItem.rightBarButtonItem = searchBarButtonItem
+        tabBarItem.badgeColor = .blue
+        
+        guard let navBar = navigationController?.navigationBar else {return}
+        navBar.prefersLargeTitles = true
+        navBar.tintColor = .tangerine
+        let borderView = UIView()
+        borderView.translatesAutoresizingMaskIntoConstraints = false
+        borderView.backgroundColor = .brownGrey
+        borderView.layer.opacity = 0.3
+        
+        navBar.backgroundColor = .white82
+        navBar.addSubview(borderView)
+        NSLayoutConstraint.activate([
+            borderView.heightAnchor.constraint(equalToConstant: 0.5),
+            borderView.topAnchor.constraint(equalTo: navBar.bottomAnchor),
+            borderView.leadingAnchor.constraint(equalTo: navBar.leadingAnchor),
+            borderView.trailingAnchor.constraint(equalTo: navBar.trailingAnchor)
+        ])
+    }
     @objc func plusButtonTapped() {
         viewModel.plusButtonTapped()
     }
@@ -94,30 +119,7 @@ class TopicsViewController: UIViewController {
         ])
     }
     
-    private func configureNavigationBar() {
-        let addBarButtonItem: UIBarButtonItem = UIBarButtonItem(image: UIImage(named: "ico_add"), style: .plain, target: self, action: nil)
-        let searchBarButtonItem: UIBarButtonItem = UIBarButtonItem(image: UIImage(named: "ico_search"), style: .plain , target: self, action: #selector(plusButtonTapped))
-        navigationItem.leftBarButtonItem = addBarButtonItem
-        navigationItem.rightBarButtonItem = searchBarButtonItem
-        tabBarItem.badgeColor = .blue
-        
-        guard let navBar = navigationController?.navigationBar else {return}
-        navBar.prefersLargeTitles = true
-        navBar.tintColor = .tangerine
-        let borderView = UIView()
-        borderView.translatesAutoresizingMaskIntoConstraints = false
-        borderView.backgroundColor = .brownGrey
-        borderView.layer.opacity = 0.3
-        
-        navBar.backgroundColor = .white82
-        navBar.addSubview(borderView)
-        NSLayoutConstraint.activate([
-            borderView.heightAnchor.constraint(equalToConstant: 0.5),
-            borderView.topAnchor.constraint(equalTo: navBar.bottomAnchor),
-            borderView.leadingAnchor.constraint(equalTo: navBar.leadingAnchor),
-            borderView.trailingAnchor.constraint(equalTo: navBar.trailingAnchor)
-        ])
-    }
+    
 }
 
 

@@ -13,10 +13,10 @@ class TopicCell: UITableViewCell {
         didSet {
             guard let viewModel = viewModel else { return }
             viewModel.viewDelegate = self
-            labelTopicTitle.text = viewModel.topicTitle
-            labelPostCount.text = viewModel.postsCount
-            labelNumberOfPosters.text = viewModel.numberOfPosters
-            labelLastPostedAt.text = viewModel.lastPostedAt.formatedStringDate(toFormat: "MMM dd")
+            topicTitleLabel.text = viewModel.topicTitle
+            postCountLabel.text = viewModel.postsCount
+            numberOfPostersLabel.text = viewModel.numberOfPosters
+            lastPostedAtLabel.text = viewModel.lastPostedAt.formatedStringDate(toFormat: "MMM dd")
             if let dataImage = viewModel.userDataImage {
                 userImage.image = UIImage(data: dataImage)
             } else {
@@ -25,7 +25,7 @@ class TopicCell: UITableViewCell {
         }
     }
     
-   
+    
     lazy var userImage: UIImageView = {
         let userImage = UIImageView()
         userImage.translatesAutoresizingMaskIntoConstraints = false
@@ -36,36 +36,34 @@ class TopicCell: UITableViewCell {
         return userImage
     }()
     
-    lazy var labelTopicTitle: UILabel = {
-        let labelTopicTitle = UILabel()
-        labelTopicTitle.translatesAutoresizingMaskIntoConstraints = false
-        labelTopicTitle.font = .textStyle5
-        labelTopicTitle.numberOfLines = 2
-        return labelTopicTitle
-    }()
-        
-    lazy var labelPostCount: UILabel = {
-        let labelPostCount = UILabel()
-        labelPostCount.translatesAutoresizingMaskIntoConstraints = false
-        labelPostCount.font = .textStyle7
-        return labelPostCount
+    lazy var topicTitleLabel: UILabel = {
+        let topicTitleLabel = UILabel()
+        topicTitleLabel.translatesAutoresizingMaskIntoConstraints = false
+        topicTitleLabel.font = .textStyle5
+        topicTitleLabel.numberOfLines = 2
+        return topicTitleLabel
     }()
     
-    lazy var labelNumberOfPosters: UILabel = {
-        let labelNumberOfPosters = UILabel()
-        labelNumberOfPosters.translatesAutoresizingMaskIntoConstraints = false
-        labelNumberOfPosters.font = .textStyle7
-        return labelNumberOfPosters
+    lazy var postCountLabel: UILabel = {
+        let postCountLabel = UILabel()
+        postCountLabel.translatesAutoresizingMaskIntoConstraints = false
+        postCountLabel.font = .textStyle7
+        return postCountLabel
     }()
     
-    lazy var labelLastPostedAt: UILabel = {
-        let labelLastPostedAt = UILabel()
-        labelLastPostedAt.translatesAutoresizingMaskIntoConstraints = false
-        labelLastPostedAt.font = .textStyle2
-        return labelLastPostedAt
+    lazy var numberOfPostersLabel: UILabel = {
+        let numberOfPostersLabel = UILabel()
+        numberOfPostersLabel.translatesAutoresizingMaskIntoConstraints = false
+        numberOfPostersLabel.font = .textStyle7
+        return numberOfPostersLabel
     }()
     
-    
+    lazy var lastPostedAtLabel: UILabel = {
+        let lastPostedAtLabel = UILabel()
+        lastPostedAtLabel.translatesAutoresizingMaskIntoConstraints = false
+        lastPostedAtLabel.font = .textStyle2
+        return lastPostedAtLabel
+    }()
     
     lazy var topicDataStack: UIStackView = {
         let topicDataStack = UIStackView()
@@ -77,7 +75,7 @@ class TopicCell: UITableViewCell {
     }()
     
     lazy var topicStack: UIStackView = {
-        let topicStack = UIStackView(arrangedSubviews: [labelTopicTitle, topicDataStack])
+        let topicStack = UIStackView(arrangedSubviews: [topicTitleLabel, topicDataStack])
         topicStack.translatesAutoresizingMaskIntoConstraints = false
         topicStack.axis = .vertical
         topicStack.spacing = 4
@@ -87,7 +85,7 @@ class TopicCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-                
+        
         contentView.addSubview(userImage)
         
         NSLayoutConstraint.activate([
@@ -98,9 +96,9 @@ class TopicCell: UITableViewCell {
             userImage.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -16)
         ])
         
-        let commentStack = createIconWithLabelHorizontalStack(iconName: "ico_comment", label: labelPostCount)
-        let usersStack = createIconWithLabelHorizontalStack(iconName: "ico_user", label: labelNumberOfPosters)
-        let calendarStack = createIconWithLabelHorizontalStack(iconName: "ico_calendar", label: labelLastPostedAt)
+        let commentStack = createIconWithLabelHorizontalStack(iconName: "ico_comment", label: postCountLabel)
+        let usersStack = createIconWithLabelHorizontalStack(iconName: "ico_user", label: numberOfPostersLabel)
+        let calendarStack = createIconWithLabelHorizontalStack(iconName: "ico_calendar", label: lastPostedAtLabel)
         topicDataStack.addArrangedSubview(commentStack)
         topicDataStack.addArrangedSubview(usersStack)
         topicDataStack.addArrangedSubview(calendarStack)
@@ -112,7 +110,7 @@ class TopicCell: UITableViewCell {
             topicStack.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -59),
             topicStack.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -14)
         ])
-       
+        
     }
     
     required init?(coder: NSCoder) {
