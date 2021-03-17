@@ -8,7 +8,7 @@
 import Foundation
 
 protocol UsersViewModelCoordinatorDelegate: class {
-    func didSelect(user: User, userImage: Data)
+    func didSelect(username: String, userImage: Data)
 }
 
 protocol UsersViewModelViewDelegate: class {
@@ -55,6 +55,6 @@ class UsersViewModel {
     }
 
     func didSelectRow(at indexPath: IndexPath) {
-        coordinatorDelegate?.didSelect(user: userViewModels[indexPath.row].user, userImage: userViewModels[indexPath.row].userDataImage ?? Data())
+        coordinatorDelegate?.didSelect(username: userViewModels[indexPath.row].user.username, userImage: userViewModels[indexPath.row].userDataImage ?? Data())
     }
 }

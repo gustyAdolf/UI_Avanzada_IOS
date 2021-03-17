@@ -21,14 +21,15 @@ class UserViewModel {
 
     var userIDLabelText: String?
     var nameLabelText: String?
+    var usernameLabelText: String?
     var userNameUsingTextFieldStackViewIsHidden = true
     var updateNameButtonIsHidden = true
     
     let userImageData: Data
 
-    init(user: User, userImage: Data, userDataManager: UserDataManager) {
+    init(username: String, userImage: Data, userDataManager: UserDataManager) {
         self.userDataManager = userDataManager
-        self.username = user.username
+        self.username = username
         self.userImageData = userImage
     }
 
@@ -39,6 +40,7 @@ class UserViewModel {
                 guard let response = response else { return }
                 self?.userIDLabelText = "\(response.user.id)"
                 self?.nameLabelText = response.user.name
+                self?.usernameLabelText = response.user.username
                 if response.user.canEditName {
                     self?.userNameUsingTextFieldStackViewIsHidden = false
                     self?.updateNameButtonIsHidden = false

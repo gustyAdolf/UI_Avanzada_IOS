@@ -23,13 +23,23 @@ class UserViewController: UIViewController {
         return userImage
     }()
     
+    lazy var nameLabel: UILabel = {
+        let nameLabel = UILabel()
+        nameLabel.translatesAutoresizingMaskIntoConstraints = false
+        nameLabel.font = .textStyle9
+        nameLabel.textColor = .tangerine
+        nameLabel.textAlignment = .center
+        return nameLabel
+    }()
+    
     lazy var usernameLabel: UILabel = {
         let usernameLabel = UILabel()
         usernameLabel.translatesAutoresizingMaskIntoConstraints = false
-        usernameLabel.font = .textStyle9
+        usernameLabel.font = .textStyle10
+        usernameLabel.textColor = .tangerine
+        usernameLabel.textAlignment = .center
         return usernameLabel
     }()
-    
     
    
 
@@ -78,15 +88,31 @@ class UserViewController: UIViewController {
             userImage.topAnchor.constraint(equalTo: orangeView.topAnchor, constant: topSpacing),
             userImage.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
+        
+        view.addSubview(nameLabel)
+        NSLayoutConstraint.activate([
+            nameLabel.topAnchor.constraint(equalTo: userImage.bottomAnchor, constant: 16),
+            nameLabel.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 24),
+            nameLabel.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -24)
+        ])
+        
+        view.addSubview(usernameLabel)
+        NSLayoutConstraint.activate([
+            usernameLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor),
+            usernameLabel.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 24),
+            usernameLabel.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -24)
+        ])
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         viewModel.viewWasLoaded()
+        
     }
 
     fileprivate func updateUI() {
-       
+        nameLabel.text = viewModel.nameLabelText
+        usernameLabel.text = viewModel.usernameLabelText
     }
 
     fileprivate func showErrorFetchingUser() {

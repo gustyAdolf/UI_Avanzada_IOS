@@ -31,11 +31,11 @@ class UsersCoordinator: Coordinator {
 }
 
 extension UsersCoordinator: UsersViewModelCoordinatorDelegate {
-    func didSelect(user: User, userImage: Data) {
-        let userViewModel = UserViewModel(user: user, userImage: userImage ,userDataManager: userDataManager)
+    func didSelect(username: String, userImage: Data) {
+        let userViewModel = UserViewModel(username: username, userImage: userImage ,userDataManager: userDataManager)
         let userViewController = UserViewController(viewModel: userViewModel)
         userViewModel.viewDelegate = userViewController
-        userViewController.title = NSLocalizedString(user.username, comment: "")
+        userViewController.title = NSLocalizedString(username, comment: "")
         presenter.present(userViewController, animated: true, completion: nil)
     }
 }
